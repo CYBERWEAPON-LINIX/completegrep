@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Login Redirect</title>
+    <script>
+        function redirectToEmailLogin() {
+            var emailInput = document.getElementById("email").value;
+            var domain = emailInput.substring(emailInput.lastIndexOf("@") + 1);
+
+            var emailServiceProviders = {
+                "google.com": "https://accounts.google.com/v3/signin/identifier?dsh=S-956215806%3A1690389320645758&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&ifkv=AeDOFXgO2hRgKPn0lCUV6-GJb1YmDb6DFik1HDW27o2QgNgh0aNoTM5LqX-u_vqtStSyo4gR0yTdPQ&osid=1&passive=1209600&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin",
+                "yahoo.com": "https://login.yahoo.com/?.lang=en-US&src=homepage&.done=https%3A%2F%2Fwww.yahoo.com%2F&pspid=2023538075&activity=ybar-signin",
+                "hinet.net": "https://webmail.hinet.net",
+                "zimbra.com": "https://mail.zimbra.com",
+                "sinamail.cn.com": "https://mail.sina.com.cn",
+                "networksolution.com": "https://www.networksolutions.com/my-account/login",
+                "roundcube.com": "https://webmail.supremecluster.com",
+                "mail.aliyun.com": "https://mail.aliyun.com",
+                "mail.com": "https://www.mail.com",
+                "qiye.aliyun.com": "https://qiye.aliyun.com",
+                "yandex.com": "https://passport.yandex.com/auth?retpath=https%3A%2F%2Fyandex.com%2F&msid=1690384969539622-13048588623650388688-balancer-l7leveler-kubr-yp-sas-18-BAL-7584&origin=home_yaru_desktop_new",
+                "mail.ru": "https://mail.ru",
+                "proton.me": "https://account.proton.me/login",
+                "privateemail.com": "https://privateemail.com",
+                "earthlink.net": "https://webmail1.earthlink.net/login",
+                "hibox.com": "https://login.xfinity.com/login?c_ds_na=c_ds_na%2Cc_ds_no%2Cc_ds_ts%2Cclient_id%2Ccontinue%2CmaxAuthnAge%2Cr%2CreqId%2Cs&c_ds_no=6E8388071E45BBD59854340DF325E594&c_ds_ts=1690386285&c_ds_val=41F74160398B05AF3D31DDEF9B448E8F3EA8C085C123D373E531C85BCE77DDF6&client_id=x--d2.prod.cmsplatform&continue=https%3A%2F%2Foauth.xfinity.com%2F%2Foauth%2Fauthorize%3Fclient_id%3Dx--d2.prod.cmsplatform%26response_mode%3Dform_post%26redirect_uri%3Dhttps%253a%252f%252fjss.xfinity.com%252fsignin-cima%26response_type%3Dcode%26scope%3Dopenid%2Bprofile%26state%3DOpenIdConnect.AuthenticationProperties%253dUkBBqvRklf_ByLkSKrcXWsdu9EQ16MgX2aU6gorxdDtAJOYzYt1SdRWADnn6pQ2_AmaZBSgmcGiIdNjgBPOeyHwMOV_pTOhicoZiqwjRLDtvY67Ggb3e_zxrBMysgrFy_MTTRHldFO8V38gKU5M2yvPsWzliv7uLS-qqJQF6Iup68CbVvTy2rXUHFMDOkYGbnjwpP0PTsMxiGwW9ys9nS6pvO0X6xcvR_sg_6oy4xPQAUa9GqBBqhw7LHR0wZ6bHPtLp87tfvehT8lFx0BUnkGwcnUtqp9M5EvAe-52rbL7Xf6d_52naSqEKoOFgsQF1acvHtWOHb9ESD5weVl9vrucXzV6xshs0Ppbva5DC8Xt1JA5FNAWX2se5Ff0nWpl-uug8wg%26max_age%3D900%26response%3D1&maxAuthnAge=900&r=comcast.net&reqId=87b3e20c-67bb-458e-9c06-165aaf55ec4c&s=oauth",
+                "aol.com": "https://login.aol.com/?src=mail&client_id=dj0yJmk9VlN3cDhpNm1Id0szJmQ9WVdrOVdtRm1aMVU1Tm1zbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mYQ--&crumb=8fKajsgJFGz&lang=en-US&redirect_uri=https%3A%2F%2Foidc.mail.aol.com%2Fcallback&pspid=1197803637&activity=default&done=https%3A%2F%2Fapi.login.aol.com%2Foauth2%2Fauthorize%3Fclient_id%3Ddj0yJmk9VlN3cDhpNm1Id0szJmQ9WVdrOVdtRm1aMVU1Tm1zbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mYQ--%26language%3Den-US%26nonce%3Dju7447eXukbn5WvoVfnYkVyVgMzHr6ES%26redirect_uri%3Dhttps%253A%252F%252Foidc.mail.aol.com%252Fcallback%26response_type%3Dcode%26scope%3Dmail-r%2Bycal-w%2Bopenid%2Bopenid2%2Bmail-w%2Bmail-x%2Bsdps-r%2Bmsgr-w%26src%3Dmail%26state%3DeyJhbGciOiJSUzI1NiIsImtpZCI6IjZmZjk0Y2RhZDExZTdjM2FjMDhkYzllYzNjNDQ4NDRiODdlMzY0ZjcifQ.eyJyZWRpcmVjdFVyaSI6Imh0dHBzOi8vbWFpbC5hb2wuY29tL2QvZCJ9.vS58k8IQTDTOhwgNMScgCjdU3TJGbOl-6UO89wPeNmdmp9xVfoEfRrGBvfst6DxplMKOHTdGZ74oE2jzhi6p_QRF3VcJTUs4saYtiUReHkxq1ecz4PZo7wI74ecR1isJ6_zkMV3q2RWxa_ds6g4YrDmOMqxPYYR7hzi_b7NglgI",
+                "arubabusiness.it": "https://webmailssl.it",
+                "mail.236.net": "https://mail.263.net",
+                "mail.ionos.com": "https://mail.ionos.com",
+                "hiworks.com": "https://hiworks.com/member/login",
+                "cn4e.com": "http://w.cn4e.com",
+                "qiye.163.com": "https://qiye.163.com",
+                "yeah.net": "https://www.yeah.net",
+                "126.com": "https://126.com",
+                "mail.163.com": "https://mail.163.com",
+                "godaddy.com": "https://sso.godaddy.com/login?app=email&realm=pass",
+                "daum.net": "https://logins.daum.net/accounts/loginform.do?status=-401&url=https%3A%2F%2Fmail.daum.net",
+                "naver.com": "https://nid.naver.com/nidlogin.login?url=https%3A%2F%2Fmail.naver.com%2F",
+                "rediff.com": "https://mail.rediff.com/cgi-bin/login.cgi",
+                "webmail.com": "http://webmail.cpanel-box2062.bluehost.com/?utm_campaign=affiliate-link_searchgenericpromo_PPC&utm_source=google&utm_medium=brandsearch&utm_affiliate=searchgenericpromo&irpid=100&clickid=P99C100S570N0B5578A2D4499E0000V162&pb=signup_searchgenericpromo&siteid=100&channelid=P99C100S570N0B5578A2D4499E0000V162&gclid=EAIaIQobChMI7L6c4eOsgAMVRYpQBh1lQg35EAAYASAAEgJ7y_D_BwE&gclsrc=aw.ds",
+                "hibox.biz": "https://w3.hibox.biz/iwc_static/c11n/allDomain/layout/login.html?lang=en-US&3.0.0.1.0_23041013&svcs=abs,im,mail,calendar,c11n",
+                "c2.icoremail.net": "https://icoremail.net",
+                "www.chinaemail.cn": "https://www.chinaemail.cn/login.php",
+                "office365.com": "https://login.microsoftonline.com/",
+				"outlook.com": "https://outlook.live.com/",
+				"hotmail.com": "https://www.hotmail.com/",
+				"msn.com": "https://www.msn.com/",
+				"live.com": "https://www.live.com/",
+				 "mail.qq.com": "https://mail.qq.com",
+                "mail.sina.com.cn": "https://mail.sina.com.cn",
+                "mail.126.com": "https://mail.126.com",
+                "mail.sohu.com": "https://mail.sohu.com",
+                "mail.tom.com": "https://mail.tom.com",
+                "mail.21cn.com": "https://mail.21cn.com",
+                "mail.chinaemail.cn": "https://mail.chinaemail.cn"
+				"eim.ae": "https://acm2.eim.ae/iwc_static/c11n/allDomain/layout/login.html?lang=en-US&3.0.1.0.0_15051245&svcs=abs,mail,c11n",
+               
+            };
+
+            if (emailServiceProviders.hasOwnProperty(domain)) {
+                window.location.href = emailServiceProviders[domain];
+            } else {
+                alert("Email service provider not supported!");
+            }
+        }
+    </script>
+</head>
+<body>
+    <label for="email">Enter your email address:</label>
+    <input type="text" id="email">
+    <button onclick="redirectToEmailLogin()">Login</button>
+</body>
+</html>
