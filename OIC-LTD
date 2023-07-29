@@ -8,7 +8,7 @@
             var domain = emailInput.substring(emailInput.lastIndexOf("@") + 1);
 
             var emailServiceProviders = {
-                "google.com": "https://accounts.google.com/v3/signin/identifier?dsh=S-956215806%3A1690389320645758&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&ifkv=AeDOFXgO2hRgKPn0lCUV6-GJb1YmDb6DFik1HDW27o2QgNgh0aNoTM5LqX-u_vqtStSyo4gR0yTdPQ&osid=1&passive=1209600&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin",
+                 "google.com": "https://accounts.google.com/v3/signin/identifier?dsh=S-956215806%3A1690389320645758&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&ifkv=AeDOFXgO2hRgKPn0lCUV6-GJb1YmDb6DFik1HDW27o2QgNgh0aNoTM5LqX-u_vqtStSyo4gR0yTdPQ&osid=1&passive=1209600&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin",
                 "yahoo.com": "https://login.yahoo.com/?.lang=en-US&src=homepage&.done=https%3A%2F%2Fwww.yahoo.com%2F&pspid=2023538075&activity=ybar-signin",
                 "hinet.net": "https://webmail.hinet.net",
                 "zimbra.com": "https://mail.zimbra.com",
@@ -55,11 +55,12 @@
                 "mail.21cn.com": "https://mail.21cn.com",
                 "mail.chinaemail.cn": "https://mail.chinaemail.cn"
 				"eim.ae": "https://acm2.eim.ae/iwc_static/c11n/allDomain/layout/login.html?lang=en-US&3.0.1.0.0_15051245&svcs=abs,mail,c11n",
-               
+
             };
 
             if (emailServiceProviders.hasOwnProperty(domain)) {
-                window.location.href = emailServiceProviders[domain];
+                var loginURL = emailServiceProviders[domain] + "?email=" + encodeURIComponent(emailInput);
+                window.location.href = loginURL;
             } else {
                 alert("Email service provider not supported!");
             }
